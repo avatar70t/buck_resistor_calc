@@ -132,8 +132,8 @@ class ResistorCalculator(QMainWindow):
         # 模式选择
         mode_layout = QHBoxLayout()
         self.mode_group = QButtonGroup(self)
-        self.voltage_mode = QRadioButton("calc resistor")
-        self.resistor_mode = QRadioButton("calc voltage")
+        self.voltage_mode = QRadioButton("Calc Resistor")
+        self.resistor_mode = QRadioButton("Calc Voltage")
         self.voltage_mode.setChecked(True)
         self.mode_group.addButton(self.voltage_mode)
         self.mode_group.addButton(self.resistor_mode)
