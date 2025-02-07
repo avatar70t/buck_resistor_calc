@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
-    QGridLayout,
+    QGridLayout,  # 添加这一行
     QLabel,
     QLineEdit,
     QPushButton,
@@ -90,13 +90,16 @@ class ResistorCalculator(QMainWindow):
                         ):
                             results.append((rfbt, rfbb, error))
 
+            # 按照 Rfbt 从小到大排序
+            results.sort(key=lambda x: x[0])
+
             self.result_text.clear()
 
             for rfbt, rfbb, error in results:
                 actual_vout = vfb * (1 + rfbt / rfbb)
                 self.result_text.append(
-                    f"Rfbt = {self.format_resistance(rfbt)}, "
-                    f"Rfbb = {self.format_resistance(rfbb)}, "
+                    f"Rfbt(Vout) = {self.format_resistance(rfbt)}, "
+                    f"Rfbb(Gnd) = {self.format_resistance(rfbb)}, "
                     f"Err = {'+' if error > 0 else ''}{error:.1f}%, "
                     f"Vout = {actual_vout:.3f}V"
                 )
@@ -123,7 +126,7 @@ class ResistorCalculator(QMainWindow):
     def initUI(self):
         self.setWindowTitle("buck_resistor_calc")
         self.setGeometry(300, 300, 800, 600)
-        self.setFixedWidth(500)  # fixsize
+        self.setFixedWidth(500)  # fix size
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -145,10 +148,9 @@ class ResistorCalculator(QMainWindow):
         # 输入区域
         input_layout = QVBoxLayout()
 
-        # 使用 QGridLayout 替代 QHBoxLayout
         input_grid = QGridLayout()
 
-        # 电压输入行
+        # vol
         self.vout_label = QLabel("Vout(V):")
         self.vout_input = QLineEdit()
         self.vout_input.setFixedWidth(80)
@@ -160,7 +162,7 @@ class ResistorCalculator(QMainWindow):
         self.calc_voltage_btn = QPushButton("Result")
         self.calc_voltage_btn.setFixedWidth(100)
 
-        # 电阻输入行
+        # res
         self.rfbt_label = QLabel("Rfbt(kΩ):")
         self.rfbt_input = QLineEdit()
         self.rfbt_input.setFixedWidth(80)
@@ -170,7 +172,7 @@ class ResistorCalculator(QMainWindow):
         self.calc_resistor_btn = QPushButton("Result")
         self.calc_resistor_btn.setFixedWidth(100)
 
-        # 使用网格布局精确定位
+        # pos
         input_grid.addWidget(self.vout_label, 0, 0)
         input_grid.addWidget(self.vout_input, 0, 1)
         input_grid.addWidget(self.vfb_label, 0, 2)
@@ -263,6 +265,9 @@ class ResistorCalculator(QMainWindow):
                         ):
                             results.append((rfbt, rfbb, error))
 
+            # 按照 Rfbt 从小到大排序
+            results.sort(key=lambda x: x[0])
+
             self.result_text.clear()
 
             for rfbt, rfbb, error in results:
@@ -270,7 +275,7 @@ class ResistorCalculator(QMainWindow):
                 self.result_text.append(
                     f"Rfbt(Vout) = {self.format_resistance(rfbt)}, "
                     f"Rfbb(Gnd) = {self.format_resistance(rfbb)}, "
-                    f"误差 = {'+' if error > 0 else ''}{error:.1f}%, "
+                    f"Err = {'+' if error > 0 else ''}{error:.1f}%, "
                     f"Vout = {actual_vout:.3f}V"
                 )
 
