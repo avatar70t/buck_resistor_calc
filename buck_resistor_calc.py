@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
-    QGridLayout,
+    QGridLayout,  # 添加这一行
     QLabel,
     QLineEdit,
     QPushButton,
@@ -96,12 +96,12 @@ class ResistorCalculator(QMainWindow):
                 self.result_text.append(
                     f"Rfbt = {self.format_resistance(rfbt)}, "
                     f"Rfbb = {self.format_resistance(rfbb)}, "
-                    f"误差 = {'+' if error > 0 else ''}{error:.1f}%, "
+                    f"Err = {'+' if error > 0 else ''}{error:.1f}%, "
                     f"Vout = {actual_vout:.3f}V"
                 )
 
         except ValueError:
-            self.result_text.setText("请输入有效的数值")
+            self.result_text.setText("Please enter valid numbers")
 
     def calculate_voltage_method(self):
         try:
@@ -117,12 +117,12 @@ class ResistorCalculator(QMainWindow):
                 f"Vout = {actual_vout:.3f}V"
             )
         except ValueError:
-            self.result_text.setText("请输入有效的数值")
+            self.result_text.setText("Please enter valid numbers")
 
     def initUI(self):
-        self.setWindowTitle("电阻计算器")
+        self.setWindowTitle("buck_resistor_calc")
         self.setGeometry(300, 300, 800, 600)
-        self.setFixedWidth(500)  # 固定窗口宽度
+        self.setFixedWidth(500)  # fixsize
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -131,8 +131,8 @@ class ResistorCalculator(QMainWindow):
         # 模式选择
         mode_layout = QHBoxLayout()
         self.mode_group = QButtonGroup(self)
-        self.voltage_mode = QRadioButton("电压算电阻")
-        self.resistor_mode = QRadioButton("电阻算电压")
+        self.voltage_mode = QRadioButton("calc resistor")
+        self.resistor_mode = QRadioButton("calc voltage")
         self.voltage_mode.setChecked(True)
         self.mode_group.addButton(self.voltage_mode)
         self.mode_group.addButton(self.resistor_mode)
@@ -156,7 +156,7 @@ class ResistorCalculator(QMainWindow):
         self.vfb_input = QLineEdit()
         self.vfb_input.setFixedWidth(80)
         self.vfb_input.setText("0.85")
-        self.calc_voltage_btn = QPushButton("计算电阻")
+        self.calc_voltage_btn = QPushButton("result")
         self.calc_voltage_btn.setFixedWidth(100)
 
         # 电阻输入行
@@ -166,7 +166,7 @@ class ResistorCalculator(QMainWindow):
         self.rfbb_label = QLabel("Rfbb(kΩ):")
         self.rfbb_input = QLineEdit()
         self.rfbb_input.setFixedWidth(80)
-        self.calc_resistor_btn = QPushButton("计算电压")
+        self.calc_resistor_btn = QPushButton("result")
         self.calc_resistor_btn.setFixedWidth(100)
 
         # 使用网格布局精确定位
@@ -190,7 +190,7 @@ class ResistorCalculator(QMainWindow):
 
         # 误差范围
         error_layout = QHBoxLayout()
-        self.error_label = QLabel("误差范围:")
+        self.error_label = QLabel("Err Range:")
         self.error_combo = QComboBox()
         self.error_combo.addItems([str(i) for i in range(1, 11)])
         self.error_combo.setCurrentText("5")
@@ -202,7 +202,7 @@ class ResistorCalculator(QMainWindow):
         layout.addLayout(input_layout)
 
         # 过滤选项
-        self.filter_check = QCheckBox("过滤1kΩ以下的电阻")
+        self.filter_check = QCheckBox("Filter out resistors below 1kΩ")
         self.filter_check.setChecked(True)
         layout.addWidget(self.filter_check)
 
@@ -212,7 +212,7 @@ class ResistorCalculator(QMainWindow):
         layout.addWidget(self.result_text)
 
         # 添加关闭按钮
-        close_btn = QPushButton("关闭")
+        close_btn = QPushButton("Close")
         close_btn.clicked.connect(self.close)
         layout.addWidget(close_btn)
 
@@ -274,7 +274,7 @@ class ResistorCalculator(QMainWindow):
                 )
 
         except ValueError:
-            self.result_text.setText("请输入有效的数值")
+            self.result_text.setText("Please enter valid numbers")
 
     def calculate_voltage(self):
         try:
@@ -290,7 +290,7 @@ class ResistorCalculator(QMainWindow):
                 f"Vout = {actual_vout:.3f}V"
             )
         except ValueError:
-            self.result_text.setText("请输入有效的数值")
+            self.result_text.setText("Please enter valid numbers")
 
 
 def main():
