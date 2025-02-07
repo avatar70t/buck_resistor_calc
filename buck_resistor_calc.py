@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QHBoxLayout,
-    QGridLayout,  # 添加这一行
+    QGridLayout,
     QLabel,
     QLineEdit,
     QPushButton,
@@ -157,7 +157,7 @@ class ResistorCalculator(QMainWindow):
         self.vfb_input = QLineEdit()
         self.vfb_input.setFixedWidth(80)
         self.vfb_input.setText("0.85")
-        self.calc_voltage_btn = QPushButton("result")
+        self.calc_voltage_btn = QPushButton("Result")
         self.calc_voltage_btn.setFixedWidth(100)
 
         # 电阻输入行
@@ -167,7 +167,7 @@ class ResistorCalculator(QMainWindow):
         self.rfbb_label = QLabel("Rfbb(kΩ):")
         self.rfbb_input = QLineEdit()
         self.rfbb_input.setFixedWidth(80)
-        self.calc_resistor_btn = QPushButton("result")
+        self.calc_resistor_btn = QPushButton("Result")
         self.calc_resistor_btn.setFixedWidth(100)
 
         # 使用网格布局精确定位
