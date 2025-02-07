@@ -43,7 +43,8 @@ class ResistorCalculator(QMainWindow):
 
     def read_resistor_list(self):
         base_values = []
-        with open("/Users/jianwang/Desktop/resistor/resistor_list.txt", "r") as f:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(script_dir, "resistor_list.txt"), "r") as f:
             base_values = [float(line.strip()) for line in f.readlines()]
 
         extended_values = []
