@@ -56,7 +56,18 @@ class ResistorCalculator(QMainWindow):
     def toggle_mode_method(self):
         is_voltage_mode = self.voltage_mode.isChecked()
         self.vout_input.setEnabled(is_voltage_mode)
-        self.vfb_input.setEnabled(is_voltage_mode)
+        # 删除 self.vfb_input.setEnabled(is_voltage_mode)
+        self.error_combo.setEnabled(is_voltage_mode)
+        self.calc_voltage_btn.setEnabled(is_voltage_mode)
+
+        self.rfbt_input.setEnabled(not is_voltage_mode)
+        self.rfbb_input.setEnabled(not is_voltage_mode)
+        self.calc_resistor_btn.setEnabled(not is_voltage_mode)
+
+    def toggle_mode(self):
+        is_voltage_mode = self.voltage_mode.isChecked()
+        self.vout_input.setEnabled(is_voltage_mode)
+        # 删除 self.vfb_input.setEnabled(is_voltage_mode)
         self.error_combo.setEnabled(is_voltage_mode)
         self.calc_voltage_btn.setEnabled(is_voltage_mode)
 
